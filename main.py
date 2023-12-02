@@ -32,10 +32,13 @@ def furie(N, t_0, T, function_x, num_t, mas_t, A):
     a = []
     w = 2 * np.pi / T
     for t in range(num_t):
-        result = 0
-        for n in range(1, N):
-            result += (a_n(t_0, T, n, w, function_x, A) * cos(n * w * mas_t[t]) + b_n(t_0, T, n, w, function_x, A) *
-                       sin(n * w * mas_t[t]))
+        result = sum(
+            (
+                a_n(t_0, T, n, w, function_x, A) * cos(n * w * mas_t[t])
+                + b_n(t_0, T, n, w, function_x, A) * sin(n * w * mas_t[t])
+            )
+            for n in range(1, N)
+        )
         a.append((a_0(T, t_0, function_x, A))/2 + result)
     return a
 
